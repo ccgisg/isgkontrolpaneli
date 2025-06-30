@@ -211,3 +211,63 @@ body {
         gap: 0.25rem;
     }
 }
+/* ================= EK-2 FORM STİLLERİ ================= */
+.ek2-form-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.ek2-form-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.ek2-form-table td, 
+.ek2-form-table th {
+    border: 1px solid #000;
+    padding: 5px;
+    vertical-align: top;
+    line-height: 1.4;
+}
+
+.ek2-form-table input {
+    border: none;
+    width: 100%;
+    background: transparent;
+    padding: 2px;
+    font-size: 12px;
+}
+
+.ek2-form-table input:focus {
+    outline: none;
+    background-color: #f0f8ff;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+
+.ek2-form-table input[type="radio"] {
+    width: auto;
+    margin-right: 5px;
+}
+
+/* Yazdırma için özel stiller */
+@media print {
+    .ek2-form-table {
+        font-size: 10pt;
+    }
+    .ek2-form-table input {
+        border-bottom: 1px solid #000;
+        background: transparent !important;
+    }
+    .ek2-form-table input:focus {
+        box-shadow: none;
+    }
+}
+
+/* Modal genişliği */
+.modal-lg {
+    max-width: 95%;
+    margin: 1rem auto;
+}
