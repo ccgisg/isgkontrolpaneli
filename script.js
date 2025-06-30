@@ -166,6 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         initModals();
         initWorkplaceActions();
         initEmployeeActions();
+        initLogout();
     } catch (error) {
         console.error('Başlatma hatası:', error);
         showError('Uygulama başlatılırken bir hata oluştu: ' + error.message);
@@ -658,7 +659,6 @@ function initWorkplaceActions() {
     }
 
     initBackButton();
-    initLogout();
 }
 
 function initEmployeeActions() {
