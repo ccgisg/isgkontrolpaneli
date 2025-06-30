@@ -166,7 +166,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         initModals();
         initWorkplaceActions();
         initEmployeeActions();
-        initLogout();
     } catch (error) {
         console.error('Başlatma hatası:', error);
         showError('Uygulama başlatılırken bir hata oluştu: ' + error.message);
@@ -299,7 +298,7 @@ function renderWorkplaces(workplaces) {
             </div>
         `;
         
-        li.querySelector('.workplace-info').addEventListener('dblclick', async () => {
+        li.querySelector('.workplace-info').addEventListener('click', async () => {
             appState.currentWorkplace = workplace;
             await showWorkplaceDetails(workplace);
         });
@@ -485,51 +484,12 @@ function initWorkplaceActions() {
     if (addWorkplaceBtn) {
         addWorkplaceBtn.addEventListener('click', () => {
             appState.isEditingWorkplace = false;
+            appState.currentWorkplace = null;
             document.getElementById('modalTitle').textContent = 'Yeni İşyeri';
             document.getElementById('workplaceNameInput').value = '';
             document.getElementById('workplaceAddressInput').value = '';
             const workplaceModal = new bootstrap.Modal(document.getElementById('workplaceModal'));
             workplaceModal.show();
-        });
-    }
-
-    const editWorkplaceBtn = document.getElementById('editWorkplaceBtn');
-    if (editWorkplaceBtn) {
-        editWorkplaceBtn.addEventListener('click', () => {
-            if (!appState.currentWorkplace) return;
-            
-            appState.isEditingWorkplace = true;
-            document.getElementById('modalTitle').textContent = 'İşyeri Düzenle';
-            document.getElementById('workplaceNameInput').value = appState.currentWorkplace.name;
-            document.getElementById('workplaceAddressInput').value = appState.currentWorkplace.address || '';
-            const workplaceModal = new bootstrap.Modal(document.getElementById('workplaceModal'));
-            workplaceModal.show();
-        });
-    }
-
-    const deleteWorkplaceBtn = document.getElementById('deleteWorkplaceBtn');
-    if (deleteWorkplaceBtn) {
-        deleteWorkplaceBtn.addEventListener('click', async () => {
-            if (!appState.currentWorkplace) return;
-            
-            if (confirm(`${appState.currentWorkplace.name} işyerini silmek istediğinize emin misiniz?`)) {
-                try {
-                    const employees = await appState.db.getEmployees(appState.currentWorkplace.id);
-                    for (const employee of employees) {
-                        await appState.db.deleteEmployee(employee.id);
-                    }
-                    
-                    await appState.db.deleteWorkplace(appState.currentWorkplace.id);
-                    
-                    document.getElementById('employeeSection').style.display = 'none';
-                    document.getElementById('workplaceSection').style.display = 'block';
-                    await loadWorkplaces();
-                    appState.currentWorkplace = null;
-                } catch (error) {
-                    console.error('İşyeri silme hatası:', error);
-                    showError('İşyeri silinirken hata oluştu');
-                }
-            }
         });
     }
 
@@ -659,6 +619,7 @@ function initWorkplaceActions() {
     }
 
     initBackButton();
+    initLogout();
 }
 
 function initEmployeeActions() {
