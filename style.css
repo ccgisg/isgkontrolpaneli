@@ -178,6 +178,38 @@ body {
     color: white;
 }
 
+/* EK-2 Formu Stilleri */
+.signature-line {
+    height: 1px;
+    background-color: #000;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #ek2Modal .modal-content, 
+    #ek2Modal .modal-content * {
+        visibility: visible;
+    }
+    #ek2Modal .modal-content {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    .no-print {
+        display: none !important;
+    }
+}
+
 /* Responsive Düzen */
 @media (max-width: 768px) {
     .login-container {
