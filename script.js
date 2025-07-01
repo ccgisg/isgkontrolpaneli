@@ -62,11 +62,41 @@ class Database {
 
 // EK-2 Formu Düzeltmesi
 function showEk2Modal(employeeIndex) {
-    const employee = appState.currentEmployees[employeeIndex];
-    if (!employee) {
-        showError('Çalışan bilgisi bulunamadı');
-        return;
+    try {
+        // 1. Çalışan bilgisini kontrol et
+        if (!appState.currentEmployees || !appState.currentEmployees[employeeIndex]) {
+            throw new Error('Çalışan bilgisi bulunamadı');
+        }
+        
+        const employee = appState.currentEmployees[employeeIndex];
+        appState.currentEmployeeIndex = employeeIndex;
+
+        // 2. Google Docs URL'sini düzgün formatla
+        const docId = '1i_4ZaDcmsPYuLDzGwAdxuD5CYgfGaRHG';
+        const viewerUrl = `https://docs.google.com/document/d/${docId}/preview?embedded=true`;
+
+        // 3. Modal içeriğini güncelle
+        document.getElementById('ek2FormContent').innerHTML = `
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="${viewerUrl}" frameborder="0"></iframe>
+            </div>
+            <div class="employee-info mt-3 p-3 bg-light rounded">
+                <h5>Çalışan Bilgileri</h5>
+                <p><strong>Ad Soyad:</strong> ${employee.name || 'Belirtilmemiş'}</p>
+                <p><strong>TCKN:</strong> ${employee.tckn || 'Belirtilmemiş'}</p>
+                <p><strong>Son Muayene:</strong> ${employee.examDate ? formatDate(employee.examDate) : 'Belirtilmemiş'}</p>
+            </div>
+        `;
+
+        // 4. Modalı göster
+        const ek2Modal = new bootstrap.Modal(document.getElementById('ek2Modal'));
+        ek2Modal.show();
+
+    } catch (error) {
+        console.error('EK-2 Modal hatası:', error);
+        showError(`EK-2 formu açılamadı: ${error.message}`);
     }
+}
 
     // Düzeltilmiş Google Docs URL
     const docxUrl = 'https://docs.google.com/document/d/1i_4ZaDcmsPYuLDzGwAdxuD5CYgfGaRHG/edit?usp=sharing';
