@@ -429,7 +429,8 @@ function showEk2Modal(employeeIndex) {
     
     const ek2Content = document.getElementById('ek2FormContent');
     ek2Content.innerHTML = `
-        <iframe src="ccgisg ek 2.docx" style="width:100%; height:70vh; border:none;"></iframe>
+        <embed src="ccgisg_ek_2.docx" type="application/pdf" width="100%" height="600px">
+        <p>Dosya görüntülenemiyorsa <a href="ccgisg_ek_2.docx" download>buradan indirin</a></p>
         <input type="hidden" id="ek2Name" value="${employee.name || ''}">
         <input type="hidden" id="ek2Tckn" value="${employee.tckn || ''}">
     `;
@@ -565,27 +566,7 @@ function initWorkplaceActions() {
                 showError('Ad soyad ve TCKN gereklidir');
                 return;
             }
-// ... (Dosyanın başındaki tüm kodlar aynı kalacak, sadece showEk2Modal fonksiyonu değişecek)
 
-// EK-2 Formu
-function showEk2Modal(employeeIndex) {
-    const employee = appState.currentEmployees[employeeIndex];
-    appState.currentEmployeeIndex = employeeIndex;
-    
-    const ek2Content = document.getElementById('ek2FormContent');
-    ek2Content.innerHTML = `
-        <object data="ccgisg ek 2.docx" type="application/vnd.openxmlformats-officedocument.wordprocessingml.document" width="100%" height="600px">
-            <p>Belge görüntülenemiyor. <a href="ccgisg ek 2.docx">İndirmek için tıklayın</a></p>
-        </object>
-        <input type="hidden" id="ek2Name" value="${employee.name || ''}">
-        <input type="hidden" id="ek2Tckn" value="${employee.tckn || ''}">
-    `;
-    
-    const ek2Modal = new bootstrap.Modal(document.getElementById('ek2Modal'));
-    ek2Modal.show();
-}
-
-// ... (Dosyanın geri kalanı tamamen aynı kalacak)
             try {
                 let nextExamDate = '';
                 if (examDate) {
