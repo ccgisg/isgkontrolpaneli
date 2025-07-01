@@ -425,20 +425,17 @@ function formatDate(dateString) {
 // EK-2 Formu
 function showEk2Modal(employeeIndex) {
     const employee = appState.currentEmployees[employeeIndex];
-    appState.currentEmployeeIndex = employeeIndex;
+    const docxUrl = 'https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing'; // DOCX dosya linki
+    const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(docxUrl)}&embedded=true`;
     
-    const ek2Content = document.getElementById('ek2FormContent');
-    ek2Content.innerHTML = `
-        <embed src="ccgisg_ek_2.docx" type="application/pdf" width="100%" height="600px">
-        <p>Dosya görüntülenemiyorsa <a href="ccgisg_ek_2.docx" download>buradan indirin</a></p>
+    document.getElementById('ek2FormContent').innerHTML = `
+        <iframe src="${viewerUrl}" width="100%" height="600px" frameborder="0"></iframe>
         <input type="hidden" id="ek2Name" value="${employee.name || ''}">
         <input type="hidden" id="ek2Tckn" value="${employee.tckn || ''}">
     `;
     
-    const ek2Modal = new bootstrap.Modal(document.getElementById('ek2Modal'));
-    ek2Modal.show();
+    new bootstrap.Modal(document.getElementById('ek2Modal')).show();
 }
-
 // Dosya Yükleme Modalı
 function showFileUploadModal(employeeIndex) {
     appState.currentFileUploadIndex = employeeIndex;
