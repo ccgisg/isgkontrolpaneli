@@ -425,7 +425,7 @@ function formatDate(dateString) {
 // EK-2 Formu
 function showEk2Modal(employeeIndex) {
     const employee = appState.currentEmployees[employeeIndex];
-    const docxUrl = 'https://drive.google.com/file/d/https://docs.google.com/document/d/1i_4ZaDcmsPYuLDzGwAdxuD5CYgfGaRHG/edit?usp=drive_link&ouid=114894644420778413357&rtpof=true&sd=true; // DOCX dosya linki
+    const docxUrl = 'https://drive.google.com/file/d/https://docs.google.com/document/d/1i_4ZaDcmsPYuLDzGwAdxuD5CYgfGaRHG/edit?usp=sharing&ouid=114894644420778413357&rtpof=true&sd=true; // DOCX dosya linki
     const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(docxUrl)}&embedded=true`;
     
     document.getElementById('ek2FormContent').innerHTML = `
