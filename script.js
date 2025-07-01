@@ -199,11 +199,12 @@ async function login() {
             throw new Error('Kullanıcı adı ve şifre gereklidir');
         }
 
+        // Giriş bilgilerini kontrol et
         if (username === 'hekim' && password === 'Sifre123!') {
             localStorage.setItem('authToken', 'demo-token');
             appState.currentUser = { username, role: 'doctor' };
             showMainView();
-            await loadWorkplaces();
+            loadWorkplaces(); // await kaldırıldı
         } else {
             throw new Error('Geçersiz kullanıcı adı veya şifre!');
         }
